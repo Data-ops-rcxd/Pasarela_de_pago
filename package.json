@@ -1,0 +1,28 @@
+{
+  "name": "pasarela_de_pago",
+  "version": "1.0.0",
+  "description": "Pasarela packages",
+  "main": "app.js",
+  "scripts": {
+    "test": "nodemon app.js"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Data-ops-rcxd/Pasarela_de_pago.git"
+  },
+  "author": "David-Tache_Daniel-Diaz_Roberto-Maldonado_Freddy-Fajardo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Data-ops-rcxd/Pasarela_de_pago/issues"
+  },
+  "homepage": "https://github.com/Data-ops-rcxd/Pasarela_de_pago#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mongoose": "^7.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
