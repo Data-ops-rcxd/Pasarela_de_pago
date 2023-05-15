@@ -20,6 +20,7 @@ mongoose
 //Middlewares
 app.use(cors());
 app.use(bodyParser.json())
+
 //Using the HTML Static files
 app.use(express.static("pages"));
 
@@ -29,6 +30,9 @@ app.use("/users", usersRouter);
 
 app.get("/", (req, res) => {
   res.sendFile("landing/login.html", { root: "pages" });
+});
+app.get("/signup", (req, res) => {
+  res.sendFile("landing/signup.html", { root: "pages" });
 });
 app.get("/landing", (req, res) => {
     res.sendFile("landing/pasarela.html", { root: "pages" });
@@ -50,3 +54,10 @@ try {
 } catch (error) {
   console.log(error);
 }
+
+
+// 1. cambiar de agregar usuarios en la DB a leer la información.
+// 2. La info pedida en la landing se usa para: info de transacción si se unde pagar, info a consultar para consultar saldos de tarjetas
+// 3. Pagina de consulta de saldos
+// 4. Pagina de registros de transacción
+// 5. Mensajes de guía para el usuario

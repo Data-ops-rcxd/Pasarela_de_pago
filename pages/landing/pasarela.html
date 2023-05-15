@@ -8,6 +8,34 @@
         <h1>Pasarela de Pago</h1>
     </header>
     <div>
+        <h1>Cards: </h1>
+        <form id="cardform">
+            <input type="text" name="card" placeholder="card number" />
+            <input type="text" name="cvv" placeholder="cvv" />
+            <input type="datetime" name="expdate" placeholder="expdate">
+            <button type="submit">Submit</button>
+          </form>
+        <div id="cardsContainer">
+
+        </div>
+        <script>
+            fetch("/users/" + jsonData.email + "/" + jsonData.password, {
+            method: "GET",
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.email === jsonData.email) {
+                window.location.href = '/landing';
+              } else {
+                document.getElementById("info").innerText = "...";
+              }
+            })
+            .catch((error) => {
+              document.getElementById("info").innerText = "...";
+            });
+        </script>
+    </div>
+    <div>
         <button onclick="window.location.href = '/purchases';">Purchases</button>
     </div>
 </body>
