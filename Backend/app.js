@@ -46,10 +46,11 @@ app.get("/cal", (req, res) => {
 
 //connection port
 const port = 3000;
+const ipAddress = '0.0.0.0'
 //Trying connection
 try {
-  app.listen(port, () => {
-    console.log('Server started in port: ' + port);
+  app.listen(port, ipAddress,() => {
+    console.log('Server started in port: ' + port + ' with address: ' + ipAddress);
   });
 } catch (error) {
   console.log(error);
