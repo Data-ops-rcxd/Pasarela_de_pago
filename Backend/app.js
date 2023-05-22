@@ -28,18 +28,9 @@ app.use(express.static("pages"));
 import usersRouter from "./database/users/users.router.js";
 app.use("/users", usersRouter);
 
-app.get("/", (req, res) => {
-  res.sendFile("landing/login.html", { root: "pages" });
-});
-app.get("/signup", (req, res) => {
-  res.sendFile("landing/signup.html", { root: "pages" });
-});
-app.get("/landing", (req, res) => {
-    res.sendFile("landing/pasarela.html", { root: "pages" });
-  });
-app.get("/purchases", (req, res) => {
-  res.sendFile("purchases/purchases.html", { root: "pages" });
-});
+import cardsRouter from "./database/cards/cards.router.js";
+app.use("/cards", cardsRouter);
+
 app.get("/cal", (req, res) => {
   res.send({ words: "Test words" });
 });
