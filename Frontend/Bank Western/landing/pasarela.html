@@ -1,0 +1,80 @@
+<html lang="en">
+  <head>
+    <title>Pasarela</title>
+    <link type="text/css" rel="stylesheet" href="pasarelaStyle.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Pasarela de Pago</h1>
+    </header>
+    <div>
+      <h1>Cards:</h1>
+      <form id="cardform">
+        <select name="cardbrand" id="cardbrand">
+          <option value="" disable selected hidden>
+            Please select a card brand
+          </option>
+          <option value="Visa">Visa</option>
+          <option value="Mastercard">Mastercard</option>
+          <option value="American Express">American Express</option>
+        </select>
+        <input type="text" name="card" placeholder="card number" />
+        <input type="number" name="cvv" placeholder="cvv" />
+        <select name="bank" id="bank">
+          <option value="" disable selected hidden>Please select a Bank</option>
+          <option value="East Bank">East Bank</option>
+          <option value="Western Bank">Western Bank</option>
+        </select>
+        <input
+          type="text"
+          name="useremail"
+          placeholder="E-mail that match with the credit card"
+        />
+        <input type="date" name="expdate" placeholder="expdate" min="" />
+        <button type="submit">Create card</button>
+      </form>
+      <div id="cardsContainer"></div>
+      <script>
+        document
+          .getElementById("cardform")
+          .addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get form data
+            const formData = new FormData(this);
+
+            // Convert form data to JSON object
+            const jsonData = {};
+            for (let [key, value] of formData.entries()) {
+              jsonData[key] = value;
+            }
+
+            fetch("http://localhost:3000/cards/createcard", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(jsonData),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                if (data.result === "Card saved.") {
+                  document.getElementById("info").innerText = data.result;
+                } else {
+                  document.getElementById("info").innerText = data;
+                }
+              })
+              .catch((error) => {
+                document.getElementById("info").innerText = "...";
+              });
+          });
+      </script>
+    </div>
+    <div>
+      <h1 id="info"></h1>
+    </div>
+    <div>
+      <button onclick="window.location.href = '/purchases';">Purchases</button>
+    </div>
+  </body>
+</html>

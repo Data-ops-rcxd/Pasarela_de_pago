@@ -1,0 +1,60 @@
+<html lang="en">
+  <head>
+    <title>Pasarela</title>
+    <link type="text/css" rel="stylesheet" href="landing/signupStyle.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Create user...</h1>
+    </header>
+    <!-- Creating form -->
+    <form id="userform">
+      <input type="text" name="name" placeholder="Name" />
+      <input type="password" name="password" placeholder="password" />
+      <input type="email" name="email" placeholder="Email" />
+      <input type="text" name="address" placeholder="address" />
+      <input type="text" name="phone" placeholder="phone" />
+      <button type="submit">Submit</button>
+    </form>
+    <div>
+        <h1 id="info"></h1>
+    </div>
+    <script>
+      document
+        .getElementById("userform")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent form submission
+
+          // Get form data
+          const formData = new FormData(this);
+
+          // Convert form data to JSON object
+          const jsonData = {};
+          for (let [key, value] of formData.entries()) {
+            jsonData[key] = value;
+          }
+
+          // Send JSON data to server using AJAX
+          fetch("/users", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(jsonData),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              console.log(data.result);
+              if (data.result === "User created") {
+                window.location.href = '/landing';
+              } else {
+                document.getElementById('info').innerText = "error creating user, user already exist or missing info";
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
+        });
+    </script>
+  </body>
+</html>
