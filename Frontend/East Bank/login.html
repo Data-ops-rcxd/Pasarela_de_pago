@@ -1,7 +1,6 @@
 <html lang="en">
   <head>
     <title>Pasarela</title>
-    <link type="text/css" rel="stylesheet" href="loginStyle.css" />
   </head>
   <body>
     <header>
@@ -32,13 +31,13 @@
           }
 
           // Send JSON data to server using AJAX
-          fetch("http://localhost:3000/users/" + jsonData.email + "/" + jsonData.password, {
+          fetch("http://localhost:3000/EastBank/users" + jsonData.email + "/" + jsonData.password, {
             method: "GET",
           })
             .then((response) => response.json())
             .then((data) => {
               if (data.email === jsonData.email) {
-                window.location.href = "pasarela.html";
+                window.location.href = "cards.html";
               } else {
                 document.getElementById("info").innerText = "User not found, invalid E-mail or password";
               }

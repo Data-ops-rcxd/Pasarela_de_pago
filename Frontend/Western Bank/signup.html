@@ -1,7 +1,6 @@
 <html lang="en">
   <head>
-    <title>Pasarela</title>
-    <link type="text/css" rel="stylesheet" href="landing/signupStyle.css" />
+    <title>Wester Bank Signup</title>
   </head>
   <body>
     <header>
@@ -35,7 +34,7 @@
           }
 
           // Send JSON data to server using AJAX
-          fetch("/users", {
+          fetch("http://localhost:3100/WesternBank/users", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -46,7 +45,7 @@
             .then((data) => {
               console.log(data.result);
               if (data.result === "User created") {
-                window.location.href = '/landing';
+                window.location.href = "cards.html";
               } else {
                 document.getElementById('info').innerText = "error creating user, user already exist or missing info";
               }

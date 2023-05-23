@@ -7,7 +7,7 @@ const app = express();
 //Connecting to the database
 mongoose
   .connect("mongodb+srv://pasarelabackend.wme0vfc.mongodb.net/", {
-    dbName: "pasarelabackend",
+    dbName: "westernbankpasarela",
     user: process.env.Mongo_user,
     pass: process.env.Mongo_pass,
   })

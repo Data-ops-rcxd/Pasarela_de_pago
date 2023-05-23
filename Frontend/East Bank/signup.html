@@ -1,20 +1,22 @@
 <html lang="en">
   <head>
     <title>Pasarela</title>
-    <link type="text/css" rel="stylesheet" href="loginStyle.css" />
   </head>
   <body>
     <header>
-      <h1>Login...</h1>
+      <h1>Create user...</h1>
     </header>
     <!-- Creating form -->
     <form id="userform">
-      <input type="email" name="email" placeholder="Email" />
+      <input type="text" name="name" placeholder="Name" />
       <input type="password" name="password" placeholder="password" />
+      <input type="email" name="email" placeholder="Email" />
+      <input type="text" name="address" placeholder="address" />
+      <input type="text" name="phone" placeholder="phone" />
       <button type="submit">Submit</button>
     </form>
     <div>
-      <h1 id="info"></h1>
+        <h1 id="info"></h1>
     </div>
     <script>
       document
@@ -32,19 +34,24 @@
           }
 
           // Send JSON data to server using AJAX
-          fetch("http://localhost:3000/users/" + jsonData.email + "/" + jsonData.password, {
-            method: "GET",
+          fetch("http://localhost:3000/EastBank/users", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(jsonData),
           })
             .then((response) => response.json())
             .then((data) => {
-              if (data.email === jsonData.email) {
-                window.location.href = "pasarela.html";
+              console.log(data.result);
+              if (data.result === "User created") {
+                window.location.href = "cards.html";
               } else {
-                document.getElementById("info").innerText = "User not found, invalid E-mail or password";
+                document.getElementById('info').innerText = "error creating user, user already exist or missing info";
               }
             })
             .catch((error) => {
-              document.getElementById("info").innerText = "User not found, invalid E-mail or password";
+              console.error("Error:", error);
             });
         });
     </script>

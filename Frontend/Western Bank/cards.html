@@ -1,8 +1,25 @@
 <html lang="en">
   <head>
-    <title>Pasarela</title>
-    <link type="text/css" rel="stylesheet" href="pasarelaStyle.css" />
+    <title>Wester Bank Cards</title>
   </head>
+  <!-- <script>
+    function loadcards(data) {
+      fetch("http://localhost:3000/EastBank/cards/findcards" + data, {
+        method: "GET",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          var container = document.getElementById("cardscont");
+
+          data.forEach(function (obj) {
+            ...
+          });
+        })
+        .catch((error) => {
+          document.getElementById("cards").innerText = "error finding cards";
+        });
+    }
+  </script> -->
   <body>
     <header>
       <h1>Pasarela de Pago</h1>
@@ -21,9 +38,7 @@
         <input type="text" name="card" placeholder="card number" />
         <input type="number" name="cvv" placeholder="cvv" />
         <select name="bank" id="bank">
-          <option value="" disable selected hidden>Please select a Bank</option>
-          <option value="East Bank">East Bank</option>
-          <option value="Western Bank">Western Bank</option>
+          <option value="" disable selected hidden>Wester Bank</option>
         </select>
         <input
           type="text"
@@ -33,7 +48,6 @@
         <input type="date" name="expdate" placeholder="expdate" min="" />
         <button type="submit">Create card</button>
       </form>
-      <div id="cardsContainer"></div>
       <script>
         document
           .getElementById("cardform")
@@ -49,7 +63,7 @@
               jsonData[key] = value;
             }
 
-            fetch("http://localhost:3000/cards/createcard", {
+            fetch("http://localhost:3100/WesternBank/cards/createcard", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -75,6 +89,9 @@
     </div>
     <div>
       <button onclick="window.location.href = '/purchases';">Purchases</button>
+    </div>
+    <div id="cardscont">
+      <h1 id="cards"></h1>
     </div>
   </body>
 </html>
