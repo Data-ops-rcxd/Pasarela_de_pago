@@ -26,17 +26,17 @@ app.use(express.static("pages"));
 
 //Routes
 import usersRouter from "./database/users/users.router.js";
-app.use("/users", usersRouter);
+app.use("/WesternBank/users", usersRouter);
 
 import cardsRouter from "./database/cards/cards.router.js";
-app.use("/cards", cardsRouter);
+app.use("/WesternBank/cards", cardsRouter);
 
-app.get("/cal", (req, res) => {
+app.get("/WesternBank/cal", (req, res) => {
   res.send({ words: "Test words" });
 });
 
 //connection port
-const port = 3000;
+const port = 3100;
 const ipAddress = '0.0.0.0'
 //Trying connection
 try {

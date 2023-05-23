@@ -26,12 +26,12 @@ app.use(express.static("pages"));
 
 //Routes
 import usersRouter from "./database/users/users.router.js";
-app.use("/users", usersRouter);
+app.use("/EastBank/users", usersRouter);
 
 import cardsRouter from "./database/cards/cards.router.js";
-app.use("/cards", cardsRouter);
+app.use("/EastBank/cards", cardsRouter);
 
-app.get("/cal", (req, res) => {
+app.get("/EastBank/cal", (req, res) => {
   res.send({ words: "Test words" });
 });
 

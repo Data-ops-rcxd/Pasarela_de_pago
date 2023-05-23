@@ -10,3 +10,36 @@ export async function createCard(req, res) {
       res.status(500).json(err.message);
     }
   }
+
+  export async function getCards(req, res) {
+    try {
+      const value = await Users.find({ isDisable: false });
+      value ? res.status(200).json(value) : res.sendStatus(404);
+    } catch (err) {
+      res.status(500).json(err.message);
+    }
+  }
+
+  export async function patchCard(req, res) {
+    try {
+      const id = req.params.id;
+      const document = await Users.findOneAndUpdate(
+        { _id: id, isDisable: false },
+        req.body,
+        { runValidators: true }
+      );
+      document ? res.status(200).json("changes applied") : res.sendStatus(404);
+    } catch (err) {
+      res.status(200).json(err.message);
+    }
+  }
+
+  export async function deleteCard(req, res) {
+    try {
+      const id = req.params.id;
+      const document = await Users.findByIdAndUpdate(id, { isDisable: true });
+      document ? res.status(200).json("changes applied") : res.sendStatus(404);
+    } catch (err) {
+      res.status(200).json(err.message);
+    }
+  }

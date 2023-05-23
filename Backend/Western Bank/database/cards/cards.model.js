@@ -57,8 +57,7 @@ const cardSchema = mongoose.Schema(
     },
     bank: {
       type: String,
-      enum: ["East Bank", "Western Bank"],
-      required: [true],
+      default: "Western Bank",
     },
     expdate: {
       type: Date,

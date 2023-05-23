@@ -57,8 +57,7 @@ const cardSchema = mongoose.Schema(
     },
     bank: {
       type: String,
-      enum: ["East Bank", "Western Bank"],
-      required: [true],
+      default: "East Bank",
     },
     expdate: {
       type: Date,
@@ -69,6 +68,7 @@ const cardSchema = mongoose.Schema(
       required: [true],
     },
     useremail: { type: String, required: [true] },
+    money: { type: mongoose.Types.Decimal128, default: 2000000.0 },
     isDisable: { type: Boolean, default: [false] },
   },
   { timestamps: true }
