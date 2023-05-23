@@ -13,7 +13,8 @@ export async function createCard(req, res) {
 
   export async function getCards(req, res) {
     try {
-      const value = await Users.find({ isDisable: false });
+      const filter = req.params.name
+      const value = await Users.findOne({ useremail: filter, isDisable: false });
       value ? res.status(200).json(value) : res.sendStatus(404);
     } catch (err) {
       res.status(500).json(err.message);
