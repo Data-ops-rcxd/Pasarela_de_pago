@@ -31,6 +31,9 @@ app.use("/WesternBank/users", usersRouter);
 import cardsRouter from "./database/cards/cards.router.js";
 app.use("/WesternBank/cards", cardsRouter);
 
+import transactionRouter from "./database/transactions/transactions.router.js";
+app.use("/WesternBank/transaction", transactionRouter);
+
 app.get("/WesternBank/cal", (req, res) => {
   res.send({ words: "Test words" });
 });
