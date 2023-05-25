@@ -3,9 +3,9 @@ import {Router} from 'express';
 const router = Router();
 
 // Endpoint GET
-router.get('/ctran',  createTransaction );
+router.post('/ctran',  createTransaction );
 
 // Endpoint POST
-router.post('/ftran', getTransaction );
+router.get('/ftran', getTransaction );
 
 export default router;
