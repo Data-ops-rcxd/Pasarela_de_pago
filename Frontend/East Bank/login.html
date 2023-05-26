@@ -31,7 +31,7 @@
           }
 
           // Send JSON data to server using AJAX
-          fetch("http://localhost:3000/EastBank/users" + jsonData.email + "/" + jsonData.password, {
+          fetch("http://localhost:3000/EastBank/users/" + jsonData.email + "/" + jsonData.password, {
             method: "GET",
           })
             .then((response) => response.json())

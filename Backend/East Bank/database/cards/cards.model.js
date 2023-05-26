@@ -68,7 +68,7 @@ const cardSchema = mongoose.Schema(
       required: [true],
     },
     useremail: { type: String, required: [true] },
-    money: { type: mongoose.Types.Decimal128, default: 2000000.0 },
+    money: { type: mongoose.Types.Decimal128, default: 20000000.0 },
     isDisable: { type: Boolean, default: [false] },
   },
   { timestamps: true }
