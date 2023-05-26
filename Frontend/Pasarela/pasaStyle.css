@@ -104,8 +104,9 @@ h1{
     height: 60%; 
     margin: 0;
     font-family: "K2D", sans-serif;
-    display: flex;
+     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
 }
 
 @media (min-width: 815px) {

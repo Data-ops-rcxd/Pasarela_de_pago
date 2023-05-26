@@ -31,6 +31,9 @@ app.use("/EastBank/users", usersRouter);
 import cardsRouter from "./database/cards/cards.router.js";
 app.use("/EastBank/cards", cardsRouter);
 
+import transactionRouter from "./database/transactions/transactions.router.js";
+app.use("/EastBank/transaction", transactionRouter);
+
 app.get("/EastBank/cal", (req, res) => {
   res.send({ words: "Test words" });
 });
@@ -47,9 +50,3 @@ try {
   console.log(error);
 }
 
-
-// 1. cambiar de agregar usuarios en la DB a leer la información.
-// 2. La info pedida en la landing se usa para: info de transacción si se unde pagar, info a consultar para consultar saldos de tarjetas
-// 3. Pagina de consulta de saldos
-// 4. Pagina de registros de transacción
-// 5. Mensajes de guía para el usuario
