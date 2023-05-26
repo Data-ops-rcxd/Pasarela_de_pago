@@ -3,7 +3,7 @@ import {Router} from 'express';
 const router = Router();
 
 // Endpoint GET
-router.get('/findcards/:name',  getCards );
+router.get('/findcards/:name', getCards );
 
 // Endpoint POST
 router.post('/createcard', createCard );
