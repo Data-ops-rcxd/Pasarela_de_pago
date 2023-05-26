@@ -9,7 +9,7 @@ router.get('/findcards/:name', getCards );
 router.post('/createcard', createCard );
 
 // Endpoint PATCH
-router.patch('/:id',  patchCard );
+router.patch('/updatecard/:id',  patchCard );
 
 // Endpoint DELETE
 router.delete('/:id', deleteCard );

@@ -3,13 +3,13 @@ import {Router} from 'express';
 const router = Router();
 
 // Endpoint GET
-router.get('/findcards/:name',  getCards );
+router.get('/findcards/:name', getCards );
 
 // Endpoint POST
 router.post('/createcard', createCard );
 
 // Endpoint PATCH
-router.patch('/:id',  patchCard );
+router.patch('/updatecard/:id',  patchCard );
 
 // Endpoint DELETE
 router.delete('/:id', deleteCard );
