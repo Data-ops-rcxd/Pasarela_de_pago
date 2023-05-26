@@ -8,7 +8,7 @@ const userSchema = mongoose.Schema(
     CDI: { type: Number, required: [true], unique: [true] },
     address: { type: String, required: [true] },
     phone: { type: String, required: [true], unique: [true] },
-    isproccesed: { type: Boolean, default: false },
+    isDisable: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

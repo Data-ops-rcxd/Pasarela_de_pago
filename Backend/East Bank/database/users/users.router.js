@@ -4,7 +4,7 @@ const router = Router();
 
 // Endpoint GET
 router.get('/:number', getUserbyID );
-router.get('/:email/:pass', getUserbyName_pass );
+router.get('/:email/:cdi', getUserbyName_pass );
 
 // Endpoint POST
 router.post('/', createUser );

@@ -1,7 +1,8 @@
+/*
 @font-face {
     font-family: "K2D";
-    src: url(path-to-your-font-file.woff2) format("woff2"); /* Update the path */
-  }
+    src: url(path-to-your-font-file.woff2) format("woff2");
+  }*/
 .pabajo{
     display: flex;
     flex-direction: column;
@@ -109,10 +110,15 @@ h1{
     justify-content: space-evenly;
 }
 
+form{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
 
 @media (min-width: 815px) {
     .paycheck,
     .contenedor {
-      width: calc(49% - 10px); /* Makes the child divs take up the full width when wrapping occurs */
+      width: calc(49% - 10px);
     }
   }

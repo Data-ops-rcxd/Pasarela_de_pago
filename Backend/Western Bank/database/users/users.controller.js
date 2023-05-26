@@ -24,10 +24,10 @@ export async function getUserbyID(req, res) {
 //busca por email y contraseña (working)
 export async function getUserbyName_pass(req, res) {
   try {
-    const { email, pass } = req.params;
+    const { email, cdi } = req.params;
     const response = await Users.findOne({
       email: email,
-      password: pass,
+      CDI: cdi,
       isDisable: false,
     });
     response ? res.status(200).json(response) : res.status(404).json({error: "Not found"});
