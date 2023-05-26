@@ -3,35 +3,114 @@
     <link rel="stylesheet" href="pasaStyle.css" />
     <title>Pasarela de pago</title>
   </head>
-  <body>
+  <body style="background-color: #efefef;">
     <header>
-      <h1>Paychanflas</h1>
+      <h1 >Pagos</h1>
     </header>
     <div class="generalcont">
       <div class="paycheck">
-        <form id="payform">
-          <input type="text" name="name" placeholder="Inserte nombre" />
-          <div class="bankselection">
-            <input
-              type="radio"
-              id="EastBank"
-              name="bankselect"
-              value="EastBank"
-            />
-            <label for="EastBank">EastBank</label><br />
-            <input
-              type="radio"
-              id="WesternBank"
-              name="bankselect"
-              value="WesternBank"
-            />
-            <label for="WesternBank">WesternBank</label><br />
+          <a class="texto" style="font-size: x-large;">Datos personales:</a>
+          <div>
+            <a class="texto">Nombre completo:</a>
+            <input type="text" class="input" placeholder="Enter text">
+          </div>
+          <div>
+            <a class="texto">E-mail:</a>
+            <input type="text" class="input" placeholder="Enter text">
+          </div>
+          <div>
+            <div class="palado">
+              <a class="texto">ID:</a>
+              <select style="margin-left: 10px; margin-top: 9px; height: 40%;" id="TipoDoc" name="TipoDeDoc" >
+                <option disabled selected value="">Elija un tipo de ID.</option>
+                <option value="Pasaporte">Pasaporte</option>
+                <option value="Cedula">Cedula</option>
+                <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
+              </select>
+            </div>
+            
+            <input type="text" class="input" placeholder="Enter text">
+          </div>
+          <div class="pabajo">
+            <a class="texto" style="font-size: x-large;">Método de pago:</a>
+            <div class="palado">
+            <div class="opciones">
+              <input type="radio" id="debito" name="Tarjeta" value="debito">
+              <label class="textoopciones">Tarjeta de debito</label>
+            </div>
+            <div class="opciones">
+              <input type="radio" id="credito" name="Tarjeta" value="credito">
+              <label class="textoopciones">Tarjeta de credito</label>
+            </div>
+          </div>
           </div>
           
-        </form>
-      </div>
-      <div class="payinfo">
-        
+          <div style="display: flex;">
+              <div>
+                <div class="pabajo">
+                  <a class="texto">Tarjeta:</a>
+                  <input type="text" class="input" placeholder="000-000-000-000">
+                </div>
+                <div style="display: flex;">
+                  <div class="pabajo">
+                    <a class="texto">CCV:</a>
+                    <input style="width: 4.5rem;" type="text" class="input" placeholder="000">
+                  </div>
+                  <div class="pabajo">
+                    <a class="texto">Número de cuotas:</a>
+                    <select style="margin-left: 10px; width: 50%; margin-top: 5px; height: 40%;" id="cuotas" name="fruit">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="4">4</option>
+                      <option value="8">8</option>
+                      <option value="12">12</option>
+                      <option value="24">24</option>
+                      <option value="36">36</option>
+                      <option value="48">48</option>
+                      <option value="60">60</option>
+                    </select>
+                  </div>
+                </div>
+                
+              </div>
+              <div>
+                <div class="pabajo">
+                  <a class="texto">Fecha de Vencimiento:</a>
+                  <div class="palado">
+                    <input style="margin-left: 10px; margin-top: 5px;" class="texto" type="month" name="expdate" placeholder="expdate"/>
+                  </div>
+                  <img style="width: 12rem; padding-top: 45px;"src="Assets\Logos.png"></img>
+                </div>
+              </div>
+          </div>
+          <div style="margin-top: 50px;" class="palado">
+            <div class="opciones">
+              <input type="radio" id="Estemedio" name="Medio" value="Este medio">
+              <label class="textoopciones">Pago por este medio</label>
+            </div>
+            <div class="opciones">
+              <input type="radio" id="PSE" name="Medio" value="PSE">
+              <img style="width: 12rem; padding: 5px;"src="Assets\PSE.png"></img>
+            </div>
+          </div>
+        </div>
+      <div class="contenedor">
+        <div class="payinfo" id="payinfo">
+          <div style="display: flex;
+          justify-content: center;">
+          <button style="margin-bottom: 20px;">Pagar</button>
+          </div>
+        </div>
+        <div class="instrucciones">
+          <h1>Instrucciones</h1>
+          <p>1. Ingresar datos personales</p>
+          <br>
+          <p>2. Escoger medio de pago</p>
+          <br>
+          <p>3. Ingresar datos de la tarjeta</p>
+          <br>
+          <p>4. Oprimir el boton de pagar</p>
+        </div>
       </div>
     </div>
   </body>
