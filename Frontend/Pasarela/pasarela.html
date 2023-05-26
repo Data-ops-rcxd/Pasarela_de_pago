@@ -15,8 +15,11 @@
     </header>
     <div class="generalcont">
       <div class="paycheck">
+
         <form id="transactionform">
-          <a class="texto" style="font-size: x-large">Datos personales:</a>
+          <a class="texto" style="font-size: x-large; 
+          position: relative;
+          bottom: 20;">Datos personales:</a>
           <div>
             <a class="texto">Nombre completo:</a>
             <input
@@ -449,6 +452,14 @@
             </button>
           </div>
         </div>
+        <button
+              type="button"
+              class="Boton"
+              onclick="sendtransaction()"
+              style="margin-bottom: 20px; border-radius: 180px;"
+            >
+              Tarjetas guardadas
+            </button>
         <div class="instrucciones">
           <h1>Instrucciones</h1>
           <p>1. Ingresar datos personales</p>

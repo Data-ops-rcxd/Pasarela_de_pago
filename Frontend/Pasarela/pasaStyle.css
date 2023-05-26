@@ -108,7 +108,12 @@ h1{
     flex-direction: column;
     justify-content: space-evenly;
 }
-
+.boton{
+    background-color: #96e2f2;
+    border: none;
+    font-family: "K2D", sans-serif;
+    font-size: large;
+}
 @media (min-width: 815px) {
     .paycheck,
     .contenedor {
