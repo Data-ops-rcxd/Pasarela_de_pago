@@ -1,6 +1,5 @@
 <html lang="en">
-  <script>
-  </script>
+  <script></script>
   <head>
     <link rel="stylesheet" href="Consulta.css" />
     <title>Consulta</title>
@@ -12,12 +11,12 @@
     <div class="generalcont">
       <div class="paycheck">
         <button
-              type="button"
-              onclick="sendtransaction()"
-              class="Boton"
-              style="width: 5rem; margin-bottom: 20px;"
-            >
-              Volver
+          type="button"
+          onclick="window.location.href = 'pasarela.html'"
+          class="Boton"
+          style="width: 5rem; margin-bottom: 20px"
+        >
+          Volver
         </button>
         <form id="transactionform">
           <div>
@@ -29,37 +28,31 @@
               placeholder="Enter text"
             />
           </div>
-          <div>
-            <div class="palado">
-              <a class="texto">ID:</a>
-            </div>
-
-            <input
-              type="text"
-              class="input"
-              name="cdi"
-              placeholder="Enter ID"
-            />
-          </div>
-          <div style="display: flex;
-          justify-content: center; margin: 10px">
+          <div style="display: flex; justify-content: center; margin: 10px">
             <button
               type="button"
               class="Boton"
-              onclick="sendtransaction()"
-              style="
-              height: 2rem;
-              width: 40%;"
+              onclick="findcards()"
+              style="height: 2rem; width: 40%"
             >
               Consultar tarjetas
             </button>
           </div>
-          
+          <div style="display: flex; justify-content: center; margin: 10px">
+            <button
+              type="button"
+              class="Boton"
+              onclick="findtrans()"
+              style="height: 2rem; width: 40%"
+            >
+              Consultar transacciones
+            </button>
+          </div>
         </form>
 
         <!-- Scripts para la conexión al backend -->
         <script>
-          async function sendtransaction() {
+          async function findcards() {
             var form = document.getElementById("transactionform");
 
             // Get form data
@@ -71,261 +64,132 @@
               jsonData[key] = value;
             });
 
-            // console.log(jsonData);
-
-            const urls = [
-              "http://localhost:3000/EastBank/users/" +
-                jsonData.email +
-                "/" +
-                jsonData.cdi,
-              "http://localhost:3100/WesternBank/users/" +
-                jsonData.email +
-                "/" +
-                jsonData.cdi,
-            ];
             const cardsurlseast = [
               "http://localhost:3000/EastBank/cards/findcards/" +
                 jsonData.email,
-              "http://localhost:3000/EastBank/cards/updatecard/" +
-                jsonData.card,
-            ];
-            const cardsurlswest = [
               "http://localhost:3100/WesternBank/cards/findcards/" +
                 jsonData.email,
-              "http://localhost:3100/WesternBank/cards/updatecard/" +
-                jsonData.card,
             ];
-            const transurls = [
-              "http://localhost:3000/EastBank/transaction/ctran",
-              "http://localhost:3000/WesternBank/transaction/ctran",
-            ];
-            let userinfo = {};
 
             try {
-              // Send request to user server East
-              const userResponse1 = await fetch(urls[1], {
+              document.getElementById("info").innerText = "Tarjetas Activas";
+              const cardresponse1 = await fetch(cardsurlseast[0], {
                 method: "GET",
               });
               // Check if user exists in server East
-              if (userResponse1.ok) {
-                const cardresponse = await fetch(cardsurlswest[0], {
-                  method: "GET",
-                });
-                if (cardresponse.ok) {
-                  const cardinfo = await cardresponse.json();
-                  //recogemos el valor a pagar
-                  const a_pagar = matricula.valor;
-                  //buscamos las tarjetas activas del usuario
-                  cardinfo.forEach((card) => {
-                    if (
-                      card.card === jsonData.card &&
-                      card.cvv == jsonData.ccv
-                    ) {
-                      //when the card is found, checks if the info is right
-                      if (parseInt(card.money) >= a_pagar) {
-                        //checks if there's money
-                        try {
-                          //valor nuevo
-                          let newmoney = parseInt(card.money) - a_pagar;
-                          //fetch the cards endpoint and sends the new transaction info
-                          fetch(cardsurlswest[1], {
-                            method: "PATCH",
-                            headers: {
-                              "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify({ money: newmoney }),
-                          })
-                            .then((pago) => {
-                              if (pago.ok) {
-                                const transaction = fetch(transurls[1], {
-                                  method: "POST",
-                                  headers: {
-                                    "Content-Type": "application/json",
-                                  },
-                                  body: JSON.stringify({
-                                    name: jsonData.name,
-                                    CDI: jsonData.cdi,
-                                    email: jsonData.email,
-                                    cardused: jsonData.card,
-                                    cuotas: jsonData.cuotas,
-                                    cardtype: jsonData.TipoTarjeta,
-                                    bank: "East Bank",
-                                    transvalue: matricula.valor,
-                                    processed: false,
-                                  }),
-                                });
-                                document.getElementById("info").innerText =
-                                  "Transacción en proceso...";
-                              } else {
-                                document.getElementById("info").innerText =
-                                  "error en el pago, no se puedo efectuar la transacción.";
-                              }
-                            })
-                            .catch((error) => {
-                              document.getElementById("info").innerText =
-                                "error fatal.";
-                            });
-                          //catching errors
-                        } catch (error) {
-                          document.getElementById("info").innerText =
-                            "error en el pago, hubo un error, intente de nuevo.";
-                        }
-                      } else {
-                        document.getElementById("info").innerText =
-                          "Pago rechazado";
-                      }
-                    } else {
-                      document.getElementById("info").innerText =
-                        "Medio de pago no activo o encontrado.";
-                    }
-                  });
-                } else {
-                  document.getElementById("info").innerText =
-                    "Can't connecto to the endpoint";
+              if (cardresponse1.ok) {
+                const cardinfo = await cardresponse1.json();
+                var container = document.getElementById("payinfo");
+                while (container.firstChild) {
+                  container.removeChild(container.firstChild);
                 }
+                cardinfo.forEach(function (obj) {
+                  var div = document.createElement("div");
+                  div.textContent =
+                    "Card: " +
+                    obj.card +
+                    ", CVV: " +
+                    obj.cvv +
+                    ", Money: " +
+                    obj.money;
+                  container.appendChild(div);
+                });
               } else {
                 // User does not exist in user server Esat, check user server Western
 
-                const userResponse1 = await fetch(urls[1], {
+                const cardresponse2 = await fetch(cardsurlseast[1], {
                   method: "GET",
                 });
                 // Check if user exists in server East
-                if (userResponse1.ok) {
-                  const cardresponse = await fetch(cardsurlseast[1], {
-                    method: "GET",
-                  });
-                  if (cardresponse.ok) {
-                    const cardinfo = await cardresponse.json();
-                    //recogemos el valor a pagar
-                    const a_pagar = matricula.valor;
-                    //buscamos las tarjetas activas del usuario
-                    cardinfo.forEach((card) => {
-                      if (
-                        card.card === jsonData.card &&
-                        card.cvv == jsonData.ccv
-                      ) {
-                        //when the card is found, checks if the info is right
-                        if (parseInt(card.money) >= a_pagar) {
-                          //checks if there's money
-                          try {
-                            //valor nuevo
-                            let newmoney = parseInt(card.money) - a_pagar;
-                            //fetch the cards endpoint and sends the new transaction info
-                            fetch(cardsurlseast[1], {
-                              method: "PATCH",
-                              headers: {
-                                "Content-Type": "application/json",
-                              },
-                              body: JSON.stringify({ money: newmoney }),
-                            })
-                              .then((pago) => {
-                                if (pago.ok) {
-                                  const transaction = fetch(transurls[0], {
-                                    method: "POST",
-                                    headers: {
-                                      "Content-Type": "application/json",
-                                    },
-                                    body: JSON.stringify({
-                                      name: jsonData.name,
-                                      CDI: jsonData.cdi,
-                                      email: jsonData.email,
-                                      cardused: jsonData.card,
-                                      cuotas: jsonData.cuotas,
-                                      cardtype: jsonData.TipoTarjeta,
-                                      bank: "East Bank",
-                                      transvalue: matricula.valor,
-                                      processed: false,
-                                    }),
-                                  });
-                                  document.getElementById("info").innerText =
-                                    "Transacción en proceso...";
-                                } else {
-                                  document.getElementById("info").innerText =
-                                    "error en el pago, no se puedo efectuar la transacción.";
-                                }
-                              })
-                              .catch((error) => {
-                                document.getElementById("info").innerText =
-                                  "error fatal.";
-                              });
-                            //catching errors
-                          } catch (error) {
-                            document.getElementById("info").innerText =
-                              "error en el pago, hubo un error, intente de nuevo.";
-                          }
-                        } else {
-                          document.getElementById("info").innerText =
-                            "Pago rechazado";
-                        }
-                      } else {
-                        document.getElementById("info").innerText =
-                          "Medio de pago no activo o encontrado.";
-                      }
-                    });
-                  } else {
-                    document.getElementById("info").innerText =
-                      "Can't connecto to the endpoint";
+                if (cardresponse2.ok) {
+                  const cardinfo = await cardresponse1.json();
+                  var container = document.getElementById("payinfo");
+                  while (container.firstChild) {
+                    container.removeChild(container.firstChild);
                   }
+                  cardinfo.forEach(function (obj) {
+                    var div = document.createElement("div");
+                    div.textContent =
+                      "Card: " +
+                      obj.card +
+                      ", CVV: " +
+                      obj.cvv +
+                      ", Money: " +
+                      obj.money;
+                    container.appendChild(div);
+                  });
                 }
               }
             } catch (error) {
-              document.getElementById("info").innerText =
-                "Can't connect to the server";
+              console.log(error);
             }
           }
 
-          async function checkconnection() {
+          async function findtrans() {
+            const transurls = [
+              "http://localhost:3000/EastBank/transaction/ftran",
+              "http://localhost:3000/WesternBank/transaction/ftran",
+            ];
+
             try {
-              const word = await fetch("http://localhost:3000/EastBank/cal", {
+              document.getElementById("info").innerText = "Transacciones realizadas";
+              const cardresponse1 = await fetch(transurls[0], {
                 method: "GET",
               });
-              if (word.ok) {
-                document.getElementById("infoserver").innerText =
-                  "East Bank server running";
-              }
-            } catch (error) {
-              document.getElementById("infoserver").innerText = "server error";
-            }
-          }
-          async function checkconnection2() {
-            try {
-              const word2 = await fetch(
-                "http://localhost:3100/WesternBank/cal",
-                {
-                  method: "GET",
+              // Check if user exists in server East
+              if (cardresponse1.ok) {
+                const cardinfo = await cardresponse1.json();
+                var container = document.getElementById("payinfo");
+                while (container.firstChild) {
+                  container.removeChild(container.firstChild);
                 }
-              );
-              if (word2.ok) {
-                document.getElementById("infoserver2").innerText =
-                  "Western Bank server running";
+                cardinfo.forEach(function (obj) {
+                  var div = document.createElement("div");
+                  div.classList.add("object-div");
+                  Object.entries(obj).forEach(function ([key, value]) {
+                    var p = document.createElement("p");
+                    p.textContent = key + ": " + value;
+                    div.appendChild(p);
+                  });
+                  container.appendChild(div);
+                });
+              }
+
+              const cardresponse2 = await fetch(transurls[1], {
+                method: "GET",
+              });
+              // Check if user exists in server East
+              if (cardresponse2.ok) {
+                const cardinfo = await cardresponse1.json();
+                var container = document.getElementById("payinfo");
+                cardinfo.forEach(function (obj) {
+                  var div = document.createElement("div");
+                  div.classList.add("object-div");
+                  Object.entries(obj).forEach(function ([key, value]) {
+                    var p = document.createElement("p");
+                    p.textContent = key + ": " + value;
+                    div.appendChild(p);
+                  });
+                  container.appendChild(div);
+                });
               }
             } catch (error) {
-              document.getElementById("infoserver2").innerText = "server error";
+              console.log(error);
             }
           }
-
-          // setInterval(checkconnection, 3000);
-          // setInterval(checkconnection2, 3000);
         </script>
       </div>
       <div class="contenedor">
-        <h2>Tarjetas activas:</h2>
+        <h2 id="info"></h2>
         <div class="payinfo" id="payinfo">
-          <div
+          <!-- <div
             style="
               display: flex;
               justify-content: center;
               flex-direction: column;
               justify-content: space-between;
             "
-          >
-            <div>
-            </div>
-            <script>
-              document.getElementById("saldoapagar").innerText =
-                matricula.info + ": " + matricula.valor;
-            </script>
-          </div>
+          ></div> -->
         </div>
       </div>
     </div>

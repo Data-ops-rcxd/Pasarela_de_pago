@@ -1,7 +1,7 @@
-@font-face {
+/* @font-face {
     font-family: "K2D";
-    src: url(path-to-your-font-file.woff2) format("woff2"); /* Update the path */
-  }
+    src: url(path-to-your-font-file.woff2) format("woff2"); /* Update the path 
+  } */
 .pabajo{
     display: flex;
     flex-direction: column;
@@ -113,6 +113,7 @@ h1{
     border: none;
     font-family: "K2D", sans-serif;
     font-size: large;
+    cursor: pointer;
 }
 @media (min-width: 815px) {
     .paycheck,

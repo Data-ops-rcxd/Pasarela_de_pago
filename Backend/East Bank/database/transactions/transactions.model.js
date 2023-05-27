@@ -8,7 +8,7 @@ const transactionsSchema = mongoose.Schema({
     cuotas:{type: Number, },
     cardtype: {type: String, required: [true] },
     bank: {type: String, required: [true] },
-    transvalue: { type: mongoose.Types.Decimal128, required: [true]},
+    transvalue: { type: Number, required: [true]},
     processed: { type: Boolean, default: false },
 }, 
 { timestamps: true }

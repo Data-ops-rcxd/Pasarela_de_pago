@@ -120,8 +120,16 @@ form{
     background-color: #96e2f2;
     border: none;
     font-family: "K2D", sans-serif;
-    font-size: large;
+    font-size: medium;
+    cursor: pointer;
 }
+
+.object-div{
+    border: 1px solid black;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
 @media (min-width: 815px) {
     .paycheck{
         width: calc(39% - 10px);

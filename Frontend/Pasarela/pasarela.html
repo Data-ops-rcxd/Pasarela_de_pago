@@ -15,11 +15,12 @@
     </header>
     <div class="generalcont">
       <div class="paycheck">
-
         <form id="transactionform">
-          <a class="texto" style="font-size: x-large; 
-          position: relative;
-          bottom: 20;">Datos personales:</a>
+          <a
+            class="texto"
+            style="font-size: x-large; position: relative; bottom: 20"
+            >Datos personales:</a
+          >
           <div>
             <a class="texto">Nombre completo:</a>
             <input
@@ -211,18 +212,18 @@
             ];
             const transurls = [
               "http://localhost:3000/EastBank/transaction/ctran",
-              "http://localhost:3000/WesternBank/transaction/ctran",
+              "http://localhost:3100/WesternBank/transaction/ctran",
             ];
             let userinfo = {};
 
             try {
               // Send request to user server East
-              const userResponse1 = await fetch(urls[1], {
+              const userResponse1 = await fetch(urls[0], {
                 method: "GET",
               });
               // Check if user exists in server East
               if (userResponse1.ok) {
-                const cardresponse = await fetch(cardsurlswest[0], {
+                const cardresponse = await fetch(cardsurlseast[0], {
                   method: "GET",
                 });
                 if (cardresponse.ok) {
@@ -242,7 +243,7 @@
                           //valor nuevo
                           let newmoney = parseInt(card.money) - a_pagar;
                           //fetch the cards endpoint and sends the new transaction info
-                          fetch(cardsurlswest[1], {
+                          fetch(cardsurlseast[1], {
                             method: "PATCH",
                             headers: {
                               "Content-Type": "application/json",
@@ -251,7 +252,7 @@
                           })
                             .then((pago) => {
                               if (pago.ok) {
-                                const transaction = fetch(transurls[1], {
+                                const transaction = fetch(transurls[0], {
                                   method: "POST",
                                   headers: {
                                     "Content-Type": "application/json",
@@ -269,7 +270,8 @@
                                   }),
                                 });
                                 document.getElementById("info").innerText =
-                                  "Transacción en proceso...";
+                                  "Transacción completada.";
+                                  
                               } else {
                                 document.getElementById("info").innerText =
                                   "error en el pago, no se puedo efectuar la transacción.";
@@ -298,43 +300,51 @@
                     "Can't connecto to the endpoint";
                 }
               } else {
+                console.log("paso al otro banco");
                 // User does not exist in user server Esat, check user server Western
 
-                const userResponse1 = await fetch(urls[1], {
+                const userResponse2 = await fetch(urls[1], {
                   method: "GET",
                 });
                 // Check if user exists in server East
-                if (userResponse1.ok) {
-                  const cardresponse = await fetch(cardsurlseast[1], {
+                if (userResponse2.ok) {
+                  console.log("entro al otro server");
+                  const cardresponse2 = await fetch(cardsurlswest[0], {
                     method: "GET",
                   });
-                  if (cardresponse.ok) {
-                    const cardinfo = await cardresponse.json();
+                  if (cardresponse2.ok) {
+                    console.log("buscó la tarjeta");
+                    const cardinfo2 = await cardresponse2.json();
+                    console.log(cardinfo2);
+                    console.log(jsonData);
                     //recogemos el valor a pagar
                     const a_pagar = matricula.valor;
                     //buscamos las tarjetas activas del usuario
-                    cardinfo.forEach((card) => {
+                    cardinfo2.forEach((card2) => {
                       if (
-                        card.card === jsonData.card &&
-                        card.cvv == jsonData.ccv
+                        card2.card === jsonData.card &&
+                        card2.cvv == jsonData.ccv
                       ) {
+                        console.log("encontró la tarjeta");
                         //when the card is found, checks if the info is right
-                        if (parseInt(card.money) >= a_pagar) {
+                        if (parseInt(card2.money) >= a_pagar) {
+                          console.log("tiene saldo");
                           //checks if there's money
                           try {
                             //valor nuevo
-                            let newmoney = parseInt(card.money) - a_pagar;
+                            let newmoney2 = parseInt(card2.money) - a_pagar;
                             //fetch the cards endpoint and sends the new transaction info
-                            fetch(cardsurlseast[1], {
+                            fetch(cardsurlswest[1], {
                               method: "PATCH",
                               headers: {
                                 "Content-Type": "application/json",
                               },
-                              body: JSON.stringify({ money: newmoney }),
+                              body: JSON.stringify({ money: newmoney2 }),
                             })
-                              .then((pago) => {
-                                if (pago.ok) {
-                                  const transaction = fetch(transurls[0], {
+                              .then((pago2) => {
+                                if (pago2.ok) {
+                                  console.log("está realizando el pago");
+                                  const transaction2 = fetch(transurls[1], {
                                     method: "POST",
                                     headers: {
                                       "Content-Type": "application/json",
@@ -346,7 +356,7 @@
                                       cardused: jsonData.card,
                                       cuotas: jsonData.cuotas,
                                       cardtype: jsonData.TipoTarjeta,
-                                      bank: "East Bank",
+                                      bank: "Western Bank",
                                       transvalue: matricula.valor,
                                       processed: false,
                                     }),
@@ -453,13 +463,13 @@
           </div>
         </div>
         <button
-              type="button"
-              class="Boton"
-              onclick="sendtransaction()"
-              style="margin-bottom: 20px; border-radius: 180px;"
-            >
-              Tarjetas guardadas
-            </button>
+          onclick="window.location.href = 'Consulta.html'"
+          type="button"
+          class="Boton"
+          style="margin-bottom: 20px; border-radius: 180px"
+        >
+          Tarjetas guardadas
+        </button>
         <div class="instrucciones">
           <h1>Instrucciones</h1>
           <p>1. Ingresar datos personales</p>
