@@ -266,13 +266,30 @@
                                     cardtype: jsonData.TipoTarjeta,
                                     bank: "East Bank",
                                     transvalue: matricula.valor,
-                                    processed: false,
+                                    processed: true,
                                   }),
                                 });
                                 document.getElementById("info").innerText =
                                   "Transacción completada.";
                                   
                               } else {
+                                const transaction = fetch(transurls[0], {
+                                  method: "POST",
+                                  headers: {
+                                    "Content-Type": "application/json",
+                                  },
+                                  body: JSON.stringify({
+                                    name: jsonData.name,
+                                    CDI: jsonData.cdi,
+                                    email: jsonData.email,
+                                    cardused: jsonData.card,
+                                    cuotas: jsonData.cuotas,
+                                    cardtype: jsonData.TipoTarjeta,
+                                    bank: "East Bank",
+                                    transvalue: matricula.valor,
+                                    processed: false,
+                                  }),
+                                });
                                 document.getElementById("info").innerText =
                                   "error en el pago, no se puedo efectuar la transacción.";
                               }
@@ -287,6 +304,23 @@
                             "error en el pago, hubo un error, intente de nuevo.";
                         }
                       } else {
+                        const transaction = fetch(transurls[0], {
+                                  method: "POST",
+                                  headers: {
+                                    "Content-Type": "application/json",
+                                  },
+                                  body: JSON.stringify({
+                                    name: jsonData.name,
+                                    CDI: jsonData.cdi,
+                                    email: jsonData.email,
+                                    cardused: jsonData.card,
+                                    cuotas: jsonData.cuotas,
+                                    cardtype: jsonData.TipoTarjeta,
+                                    bank: "East Bank",
+                                    transvalue: matricula.valor,
+                                    processed: false,
+                                  }),
+                                });
                         document.getElementById("info").innerText =
                           "Pago rechazado";
                       }
@@ -358,12 +392,29 @@
                                       cardtype: jsonData.TipoTarjeta,
                                       bank: "Western Bank",
                                       transvalue: matricula.valor,
-                                      processed: false,
+                                      processed: true,
                                     }),
                                   });
                                   document.getElementById("info").innerText =
-                                    "Transacción en proceso...";
+                                    "Transacción completada.";
                                 } else {
+                                  const transaction = fetch(transurls[1], {
+                                  method: "POST",
+                                  headers: {
+                                    "Content-Type": "application/json",
+                                  },
+                                  body: JSON.stringify({
+                                    name: jsonData.name,
+                                    CDI: jsonData.cdi,
+                                    email: jsonData.email,
+                                    cardused: jsonData.card,
+                                    cuotas: jsonData.cuotas,
+                                    cardtype: jsonData.TipoTarjeta,
+                                    bank: "East Bank",
+                                    transvalue: matricula.valor,
+                                    processed: false,
+                                  }),
+                                });
                                   document.getElementById("info").innerText =
                                     "error en el pago, no se puedo efectuar la transacción.";
                                 }
@@ -378,6 +429,23 @@
                               "error en el pago, hubo un error, intente de nuevo.";
                           }
                         } else {
+                          const transaction = fetch(transurls[1], {
+                                  method: "POST",
+                                  headers: {
+                                    "Content-Type": "application/json",
+                                  },
+                                  body: JSON.stringify({
+                                    name: jsonData.name,
+                                    CDI: jsonData.cdi,
+                                    email: jsonData.email,
+                                    cardused: jsonData.card,
+                                    cuotas: jsonData.cuotas,
+                                    cardtype: jsonData.TipoTarjeta,
+                                    bank: "East Bank",
+                                    transvalue: matricula.valor,
+                                    processed: false,
+                                  }),
+                                });
                           document.getElementById("info").innerText =
                             "Pago rechazado";
                         }
